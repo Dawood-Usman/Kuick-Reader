@@ -1,0 +1,5 @@
+Put all the configurations file here.
+- database connection
+- node mailer 
+- multer
+etc
