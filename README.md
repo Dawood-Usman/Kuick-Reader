@@ -13,11 +13,6 @@ git init
 git config --global user.name "your user-name"
 git config --global user.email "your email"
 ```
-2. Configure your git username & email
-```
-git config --global user.name "your user-name"
-git config --global user.email "your email"
-```
 3. Set up the Remote Repository
 ```
 git remote add origin https://github.com/Dawood-Usman/Summers-Project
@@ -37,7 +32,7 @@ Note:
 Before making any changes, create a new branch for your work. Use a descriptive branch name that reflects the task or feature you're working on (See branch name guide section).
 Work on Your Changes Make the necessary changes and additions to the project on your local machine. Once you're satisfied with your changes, 
 commit them to your local branch using the following command:
-<br><br>
+<br>
 
 ```
 git add .
@@ -48,7 +43,7 @@ git commit -m "your commit msg"
 git push -u origin <your-branch-name>
 
 ```
-7.  Keeping your Repository up to date to avoid conflicts
+7.  Keep your Repository up to date to avoid conflicts
 ```
 git pull origin master
 ```
