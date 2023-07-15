@@ -1,8 +1,11 @@
 import './App.css';
+import LandingPage from './components/LandingPage/LandingPage';
 
 function App() {
   return (
-      <h1>Welcome To Summer Project</h1>
+    <>
+      <LandingPage></LandingPage>
+    </>
   );
 }
 
