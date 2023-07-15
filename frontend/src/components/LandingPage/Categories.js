@@ -1,9 +1,9 @@
 import React from 'react'
 import '../LandingPage/custom.css'
-import HorrorIcon from './../../images/horror.png'
-import RomanceIcon from './../../images/romance.png'
-import CrimeIcon from './../../images/crime.png'
-import FictionIcon from './../../images/fiction.png'
+import HorrorIcon from './../../assets/images/horror.png'
+import RomanceIcon from './../../assets/images/romance.png'
+import CrimeIcon from './../../assets/images/crime.png'
+import FictionIcon from './../../assets/images/fiction.png'
 
 function Categories() {
 

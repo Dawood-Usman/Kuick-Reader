@@ -1,11 +1,11 @@
 import React, {useState} from 'react'
 import {BsChevronCompactLeft, BsChevronCompactRight} from 'react-icons/bs'
 import {RxDotFilled} from 'react-icons/rx'
-import Book1 from './../../images/book-1.jpg'
-import Book2 from './../../images/book-2.jpg'
-import Book3 from './../../images/book-3.jpg'
-import Book4 from './../../images/book-4.jpg'
-import Book5 from './../../images/book-5.jpg'
+import Book1 from './../../assets/images/book-1.jpg'
+import Book2 from './../../assets/images/book-2.jpg'
+import Book3 from './../../assets/images/book-3.jpg'
+import Book4 from './../../assets/images/book-4.jpg'
+import Book5 from './../../assets/images/book-5.jpg'
 
 function Slider() {
 
