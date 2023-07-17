@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react'
+import { Link } from 'react-router-dom';
 import Logo from './../../assets/images/logo.png'
 
 function Header() {
@@ -31,7 +32,7 @@ function Header() {
         </ul>
         <button
         className={`text-lg bg-green-400 self-center h-fit px-5 py-0.5 border-2 rounded-2xl duration-500 ease-in-out   ${isScaled ? 'scale-110' : ''}`}
-      >Login</button>
+      ><Link to="/login">Login</Link></button>
     </div>
     </>
   )

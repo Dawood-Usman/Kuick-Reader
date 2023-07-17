@@ -1,8 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-
 html,
 body {
   padding: 0;
@@ -11,4 +9,8 @@ body {
 
 * {
   box-sizing: border-box;
+}
+
+.bgForm{
+  background-color: #ECF0F3;
 }
