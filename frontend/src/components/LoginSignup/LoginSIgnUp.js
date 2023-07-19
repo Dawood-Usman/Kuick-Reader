@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebook, faGoogle, faLinkedin } from "@fortawesome/free-brands-svg-icons";
+import { useNavigate } from "react-router-dom";
+
 
 function LoginSignupPage() {
+
+  const navigate = useNavigate();
+
   const [isLoginForm, setIsLoginForm] = useState(true);
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -21,11 +26,19 @@ function LoginSignupPage() {
       console.log("Login Form Submitted");
       console.log("Email: ", email);
       console.log("Password: ", password);
-    } else {
+    } 
+    else {
       console.log("Signup Form Submitted");
       console.log("Name: ", fullName);
       console.log("Email: ", email);
       console.log("Password: ", password);
+
+      navigate("/verification", {
+        state: {
+          email,
+          password,
+        },
+      });
     }
   };
 
@@ -155,6 +168,7 @@ function LoginSignupPage() {
                 <p className="text-gray-500 text-center m-4">
                   Not Registered Yet?{" "}
                   <button
+                    type="button"
                     onClick={controlFormToggle}
                     className="text-blue-500 hover:text-blue-700 underline p-1"
                   >
@@ -175,6 +189,7 @@ function LoginSignupPage() {
                   Already Registered?{" "}
                   <button
                     onClick={controlFormToggle}
+                    type="button"
                     className="text-blue-500 hover:text-blue-700 underline p-1"
                   >
                     LogIn
