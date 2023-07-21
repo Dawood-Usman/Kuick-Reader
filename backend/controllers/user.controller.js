@@ -31,17 +31,17 @@ const signUp = async (req, res) => {
         if (isUserExist) return res.status(404).json({ ErrorMsg: "User Already Exist!" });
         const salt = await bcrypt.genSalt();
         const passwordHash = await bcrypt.hash(password, salt);
+        const verificationCode = sendVerificationCode(email);
         const newUser = {
             fullName: fullName,
             email: email,
-            password: passwordHash
+            password: passwordHash,
+            code: verificationCode
         }
-        const verificationCode = sendVerificationCode(email);
 
-        req.session.code = verificationCode;
-        req.session.userData = newUser;
-    
-        res.status(200).json({code: verificationCode, email: email});
+        const userJWT = jwt.sign(newUser, process.env.JWT_SECRET);
+
+        res.status(200).json({code: verificationCode, email: email, userJWT: userJWT});
         // it should now redirect back to login page.
         
     } catch (error) {
@@ -65,18 +65,25 @@ const sendVerificationCode = (email)=>{
 }
 
 const verifyEmail = async (req, res)=>{
-    const userCode = req.body.code;
-    const actualCode = req.session.code;
+    const { userCode, userJWT } = req.body;
 
-    if (userCode === actualCode ) {
-        const newUser =  new User(req.session.userData);
+    const jwtData = jwt.verify(userJWT, process.env.JWT_SECRET);
+    
+    const userData = {
+        fullName: jwtData.fullName,
+        email: jwtData.email,
+        password: jwtData.password,
+    }
+    const actualCode = jwtData.code;
+
+    if (userCode == actualCode) {
+        const newUser =  new User(userData);
         const saveUser = await newUser.save();
         if (!saveUser) return res.status(404).json({ ErrorMsg: "User Registration Failed!" });
         res.status(200).json({ SuccessMsg: "User Registered Sussessfully!" });
     }
     else {
-        req.session.code = null;
-        res.status(404).json({ ErrorMsg: "Wrong Verification Code!\nTry To SignUp Again..." });
+        res.status(404).json({ ErrorMsg: "Wrong Verification Code, Try To SignUp Again..." });
     }
 }
 

@@ -6,7 +6,7 @@ const nodemailer = require("nodemailer");
     port: 465,
     secure: true,
     auth: {
-      user: "dawoodusman370@gmail.com",
+      user: process.env.GMAIL,
       pass: process.env.APP_PASSWORD,
     },
   });
