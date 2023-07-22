@@ -1,20 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import Logo from "./../../assets/images/logo.png";
 
-function Header() {
-  const [isScaled, setIsScaled] = useState(false);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIsScaled((prevIsScaled) => !prevIsScaled);
-    }, 500);
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, []);
-
+function DashboardHeader() {
   return (
     <>
       <div className="flex flex-wrap justify-between content-center w-full h-auto px-10 py-2 z-30">
@@ -52,18 +40,12 @@ function Header() {
             Contact
           </Link>
         </ul>
-        <Link className="self-center" to="/login">
-          <button
-            className={`text-lg bg-green-400 h-fit px-5 py-0.5 border-2 rounded-2xl duration-500 ease-in-out   ${
-              isScaled ? "scale-110" : ""
-            }`}
-          >
-            Login
-          </button>
-        </Link>
+        <p className={`text-lg text-yellow-600 self-center h-fit px-5 py-0.5`}>
+          sheeraz
+        </p>
       </div>
     </>
   );
 }
 
-export default Header;
+export default DashboardHeader;
