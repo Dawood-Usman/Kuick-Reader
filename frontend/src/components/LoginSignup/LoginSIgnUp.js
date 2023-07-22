@@ -1,11 +1,16 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFacebook, faGoogle, faLinkedin } from "@fortawesome/free-brands-svg-icons";
+import {
+  faFacebook,
+  faGoogle,
+  faLinkedin,
+} from "@fortawesome/free-brands-svg-icons";
 import { useNavigate } from "react-router-dom";
-
+import axios from "./../../axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function LoginSignupPage() {
-
   const navigate = useNavigate();
 
   const [isLoginForm, setIsLoginForm] = useState(true);
@@ -20,44 +25,78 @@ function LoginSignupPage() {
     setPassword("");
   };
 
+  const handleLogin = async () => {
+    try {
+      const response = await axios.post("/signIn", { email, password });
+      if (response.status === 200) {
+        notify(response.data.SuccessMsg);
+        const Token = response.data.Token;
+        navigate("/dashboard", {
+          state: {
+            email,
+            Token,
+          },
+        });
+      }
+    } catch (error) {
+      notify(error.response.data.ErrorMsg);
+    }
+  };
+
+  const handleSignup = async () => {
+    try {
+      const response = await axios.post("/signUp", {
+        fullName,
+        email,
+        password,
+      });
+      if (response.status === 200) {
+        notify("Code Sent! Check Your Mail.");
+        const userJWT = response.data.userJWT;
+        navigate("/verification", {
+          state: {
+            email,
+            userJWT,
+          },
+        });
+      }
+    } catch (error) {
+      notify(error.response.data.ErrorMsg);
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isLoginForm) {
-      console.log("Login Form Submitted");
-      console.log("Email: ", email);
-      console.log("Password: ", password);
-    } 
-    else {
-      console.log("Signup Form Submitted");
-      console.log("Name: ", fullName);
-      console.log("Email: ", email);
-      console.log("Password: ", password);
-
-      navigate("/verification", {
-        state: {
-          email,
-          password,
-        },
-      });
+      if (email !== "" && password !== "") handleLogin();
+    } else {
+      if (fullName !== "" && email !== "" && password !== "") handleSignup();
     }
   };
+
+  const notify = (msg) => toast(msg);
 
   return (
     <div className="flex overflow-hidden relative h-screen">
       <div
         id="SC"
-        className={`flex-1 bg-gray-200 justify-center items-center duration-700 hidden md:flex transition-all ease-in-out ${isLoginForm ? "right-0" : "left-0"} ${isLoginForm ? "translte-x-0" : ""}`}
+        className={`flex-1 bg-gray-200 justify-center items-center duration-700 hidden md:flex transition-all ease-in-out ${
+          isLoginForm ? "right-0" : "left-0"
+        } ${isLoginForm ? "translte-x-0" : ""}`}
       >
         <div className="text-center">
           <h1 className="text-4xl font-bold">Welcome to kuickReader!</h1>
           <p className="text-gray-500 text-lg mt-4">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis scelerisque elit ac purus varius ullamcorper.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis
+            scelerisque elit ac purus varius ullamcorper.
           </p>
         </div>
       </div>
       <div
         id="LSF"
-        className={`flex-1 flex justify-center items-center duration-700 transition-all ease-in-out ${isLoginForm ? "left-0" : "right-0"} ${isLoginForm ? "-translte-x-0" : ""}`}
+        className={`flex-1 flex justify-center items-center duration-700 transition-all ease-in-out ${
+          isLoginForm ? "left-0" : "right-0"
+        } ${isLoginForm ? "-translte-x-0" : ""}`}
       >
         <form
           onSubmit={handleSubmit}
@@ -105,6 +144,7 @@ function LoginSignupPage() {
                     type="email"
                     name="email"
                     id="email"
+                    required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
@@ -115,6 +155,7 @@ function LoginSignupPage() {
                     type="password"
                     name="password"
                     id="password"
+                    required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
@@ -130,6 +171,7 @@ function LoginSignupPage() {
                     type="text"
                     name="fullName"
                     id="fullName"
+                    required
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                   />
@@ -140,6 +182,7 @@ function LoginSignupPage() {
                     type="email"
                     name="email"
                     id="email"
+                    required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
@@ -150,6 +193,7 @@ function LoginSignupPage() {
                     type="password"
                     name="password"
                     id="password"
+                    required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
@@ -200,6 +244,7 @@ function LoginSignupPage() {
           </div>
         </form>
       </div>
+      <ToastContainer />
     </div>
   );
 }
