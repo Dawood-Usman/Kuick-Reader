@@ -5,6 +5,7 @@ const User = require("../models/user.model");
 const transporter = require("../config/transporter");
 
 const signIn = async (req, res) => {
+
     let { email, password } = req.body;
     try {
         const user = await User.findOne({ email });
