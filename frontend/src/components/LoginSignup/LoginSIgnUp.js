@@ -1,14 +1,9 @@
 import React, { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faFacebook,
-  faGoogle,
-  faLinkedin,
-} from "@fortawesome/free-brands-svg-icons";
 import { useNavigate } from "react-router-dom";
 import axios from "./../../axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import GoogleIcon from "./../../assets/images/GoogleIcon.png";
 
 function LoginSignupPage() {
   const navigate = useNavigate();
@@ -108,31 +103,18 @@ function LoginSignupPage() {
               {isLoginForm ? "Login" : "SignUp"}
             </h2>
 
-            <div className="">
-              <div className="flex justify-center">
-                <button className="text-xl mx-2 text-blue-500 hover:text-blue-700 focus:outline-none ease-in-out duration-200 hover:scale-110">
-                  <FontAwesomeIcon
-                    icon={faFacebook}
-                    className="rounded-full border-2 border-blue-500 p-1"
-                  />
-                </button>
-                <button className="text-xl mx-2 text-red-600 hover:text-red-800 focus:outline-none ease-in-out duration-200 hover:scale-110">
-                  <FontAwesomeIcon
-                    icon={faGoogle}
-                    className="rounded-full border-2 border-red-600 p-1"
-                  />
-                </button>
-                <button className="text-xl mx-2 text-blue-500 hover:text-blue-900 focus:outline-none ease-in-out duration-200 hover:scale-110">
-                  <FontAwesomeIcon
-                    icon={faLinkedin}
-                    className="rounded-full border-2 border-blue-700 p-1"
-                  />
-                </button>
+            <button className="text-xl mx-auto my-4 cursor-pointer w-60">
+              <div className="flex flex-row items-center p-px bg-blue-600 rounded">
+                <img
+                  src={GoogleIcon}
+                  alt="Google Icon"
+                  className="w-8 bg-white rounded-sm inline mx-px"
+                />
+                <p className="text-center text-white px-3 py-1">
+                  {isLoginForm ? "Login" : "SignUp"} with Google
+                </p>
               </div>
-              <p className="text-center text-gray-500 m-2">
-                Or {isLoginForm ? "Login" : "SignUp"} with email address
-              </p>
-            </div>
+            </button>
 
             {isLoginForm ? (
               <>
@@ -164,7 +146,7 @@ function LoginSignupPage() {
             ) : (
               <>
                 <div className="flex flex-col m-3">
-                  <label htmlFor="fullName">Full Name</label>
+                  <label htmlFor="fullName">Name</label>
                   <input
                     className="px-2 py-1 m-1 outline-none rounded-md"
                     placeholder="Full Name"
