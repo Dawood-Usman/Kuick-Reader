@@ -8,7 +8,7 @@ frontend/package-lock.json
 backend/node_modules
 backend/package-lock.json
 
-backend/.env
+*.env
 
 /.pnp
 .pnp.js
