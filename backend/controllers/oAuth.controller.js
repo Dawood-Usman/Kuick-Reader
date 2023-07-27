@@ -32,12 +32,13 @@ passport.deserializeUser(function (obj, cb) {
 const loginSucceed = (req, res)=> {
     // console.log(req.user);
     // User Data : req.user
+    const data = req.user;
     const token = jwt.sign({ login: true, email: req.user.emails[0].value }, process.env.JWT_SECRET, { expiresIn: '24h' });
   
     // Set the JWT token as a cookie
     res.cookie('jwtUserAuth', token, { maxAge: 24 * 60 * 60 * 1000 });
 
-    res.send("Login Successfull .....");
+    res.status(200).json({authToken: token, user: data, ResMsg: "Login Successfull..."});
 }
 
 module.exports = { passport , loginSucceed };
