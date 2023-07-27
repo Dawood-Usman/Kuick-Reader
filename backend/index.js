@@ -1,5 +1,5 @@
 require("dotenv").config()
-// require("./config/dbConnection")
+require("./config/dbConnection")
 
 const express = require("express");
 const app = express();
@@ -28,8 +28,6 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
-
-
 
 app.use('/', userRoutes);
 
