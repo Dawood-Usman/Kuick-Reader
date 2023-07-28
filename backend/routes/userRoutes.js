@@ -11,7 +11,7 @@ userRouter.get('/home', (req, res) => {
 userRouter.post('/signUp', userMethods.signUp);
 userRouter.post('/signIn', userMethods.signIn);
 userRouter.post('/verify', userMethods.verifyEmail);
-
+userRouter.get('/userInfo', userMethods.getTokenInfo);
 
 // oAuth API
 userRouter.get(
