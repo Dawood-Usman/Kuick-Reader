@@ -89,12 +89,34 @@ const verifyEmail = async (req, res)=>{
 }
 
 
-const getTokenInfo = async (req, res) => {
-    const [Bearer, token] = req.headers.authorization.split(' ');
-    const verify = jwt.verify(token, process.env.JWT_SECRET);
-    if (!verify) res.status(400).json({ ErrorMsg: "Invalid Token!" });
-    const getUser = await User.findOne({ _id: verify.id });
-    res.status(200).json(getUser);
+// const getTokenInfo = async (req, res) => {
+//     const [Bearer, token] = req.headers.authorization.split(' ');
+//     const verify = jwt.verify(token, process.env.ID);
+//     if (!verify) res.status(400).json({ ErrorMsg: "Invalid Token!" });
+//     // const getUser = await User.findOne({ _id: verify.id });
+//     res.status(200).json(verify);
+// }
+
+const { OAuth2Client } = require('google-auth-library');
+
+const getTokenInfo = async (req, res)=>{
+    // (client_id, jwtToken) 
+
+    const client_id = process.env.ID;
+    const [Bearer, jwtToken] = req.headers.authorization.split(' ');
+
+    const client = new OAuth2Client(client_id);
+    // Call the verifyIdToken to
+    // varify and decode it
+    const ticket = await client.verifyIdToken({
+        idToken: jwtToken,
+        audience: client_id,
+    });
+    // Get the JSON with all the user info
+    const payload = ticket.getPayload();
+    // This is a JSON object that contains
+    // all the user info
+    return res.status(200).json({decodedData: payload});
 }
 
 module.exports = { signUp, signIn, getTokenInfo, verifyEmail };
