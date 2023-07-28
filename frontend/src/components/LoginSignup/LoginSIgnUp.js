@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "./../../axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import GoogleIcon from "./../../assets/images/GoogleIcon.png";
+import OauthButton from "./OauthButton";
 
 function LoginSignupPage() {
   const navigate = useNavigate();
@@ -26,6 +26,7 @@ function LoginSignupPage() {
       if (response.status === 200) {
         notify(response.data.SuccessMsg);
         const Token = response.data.Token;
+        localStorage.setItem("token", Token);
         navigate("/dashboard", {
           state: {
             email,
@@ -93,138 +94,125 @@ function LoginSignupPage() {
           isLoginForm ? "left-0" : "right-0"
         } ${isLoginForm ? "-translte-x-0" : ""}`}
       >
-        <form
-          onSubmit={handleSubmit}
-          action=""
-          className="w-[400px] bgForm px-6 py-5 rounded shadow-md"
-        >
-          <div className="flex flex-col">
-            <h2 className="text-center text-2xl py-8 font-bold">
-              {isLoginForm ? "Login" : "SignUp"}
-            </h2>
-
-            <button className="text-xl mx-auto my-4 cursor-pointer w-60">
-              <div className="flex flex-row items-center p-px bg-blue-600 rounded">
-                <img
-                  src={GoogleIcon}
-                  alt="Google Icon"
-                  className="w-8 bg-white rounded-sm inline mx-px"
-                />
-                <p className="text-center text-white px-3 py-1">
-                  {isLoginForm ? "Login" : "SignUp"} with Google
-                </p>
-              </div>
-            </button>
-
-            {isLoginForm ? (
-              <>
-                <div className="flex flex-col m-3">
-                  <label htmlFor="email">Email</label>
-                  <input
-                    className="px-2 py-1 m-1 outline-none rounded-md"
-                    placeholder="Email"
-                    type="email"
-                    name="email"
-                    id="email"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                  <label htmlFor="password">Password</label>
-                  <input
-                    className="px-2 py-1 m-1 outline-none rounded-md"
-                    placeholder="Password"
-                    type="password"
-                    name="password"
-                    id="password"
-                    required
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                </div>
-              </>
-            ) : (
-              <>
-                <div className="flex flex-col m-3">
-                  <label htmlFor="fullName">Name</label>
-                  <input
-                    className="px-2 py-1 m-1 outline-none rounded-md"
-                    placeholder="Full Name"
-                    type="text"
-                    name="fullName"
-                    id="fullName"
-                    required
-                    value={fullName}
-                    onChange={(e) => setFullName(e.target.value)}
-                  />
-                  <label htmlFor="">Email</label>
-                  <input
-                    className="px-2 py-1 m-1 outline-none rounded-md"
-                    placeholder="Email"
-                    type="email"
-                    name="email"
-                    id="email"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                  <label htmlFor="">Password</label>
-                  <input
-                    className="px-2 py-1 m-1 outline-none rounded-md"
-                    placeholder="Password"
-                    type="password"
-                    name="password"
-                    id="password"
-                    required
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                </div>
-              </>
-            )}
-            {isLoginForm ? (
-              <>
-                <button
-                  type="submit"
-                  className="bg-blue-500 hover:bg-blue-700 duration-200 mx-auto text-lg px-5 py-1 border-2 rounded-3xl text-white my-1"
-                >
-                  LogIn
-                </button>
-
-                <p className="text-gray-500 text-center m-4">
-                  Not Registered Yet?{" "}
+        <div className="w-[400px] bgForm px-6 py-5 rounded shadow-md flex flex-col">
+          <h2 className="text-center text-2xl py-8 font-bold">
+            {isLoginForm ? "Login" : "SignUp"}
+          </h2>
+          <OauthButton isLoginForm={isLoginForm}></OauthButton>
+          <form action="">
+            <div className="flex flex-col">
+              {isLoginForm ? (
+                <>
+                  <div className="flex flex-col m-3">
+                    <label htmlFor="email">Email</label>
+                    <input
+                      className="px-2 py-1 m-1 outline-none rounded-md"
+                      placeholder="Email"
+                      type="email"
+                      name="email"
+                      id="email"
+                      required
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <label htmlFor="password">Password</label>
+                    <input
+                      className="px-2 py-1 m-1 outline-none rounded-md"
+                      placeholder="Password"
+                      type="password"
+                      name="password"
+                      id="password"
+                      required
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="flex flex-col m-3">
+                    <label htmlFor="fullName">Name</label>
+                    <input
+                      className="px-2 py-1 m-1 outline-none rounded-md"
+                      placeholder="Full Name"
+                      type="text"
+                      name="fullName"
+                      id="fullName"
+                      required
+                      value={fullName}
+                      onChange={(e) => setFullName(e.target.value)}
+                    />
+                    <label htmlFor="">Email</label>
+                    <input
+                      className="px-2 py-1 m-1 outline-none rounded-md"
+                      placeholder="Email"
+                      type="email"
+                      name="email"
+                      id="email"
+                      required
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <label htmlFor="">Password</label>
+                    <input
+                      className="px-2 py-1 m-1 outline-none rounded-md"
+                      placeholder="Password"
+                      type="password"
+                      name="password"
+                      id="password"
+                      required
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                  </div>
+                </>
+              )}
+              {isLoginForm ? (
+                <>
                   <button
-                    type="button"
-                    onClick={controlFormToggle}
-                    className="text-blue-500 hover:text-blue-700 underline p-1"
-                  >
-                    SignUp
-                  </button>
-                </p>
-              </>
-            ) : (
-              <>
-                <button
-                  type="submit"
-                  className="bg-green-500 hover:bg-green-700 duration-200 mx-auto text-lg px-5 py-1 border-2 rounded-3xl text-white my-1"
-                >
-                  SignUp
-                </button>
-
-                <p className="text-gray-500 text-center m-4">
-                  Already Registered?{" "}
-                  <button
-                    onClick={controlFormToggle}
-                    type="button"
-                    className="text-blue-500 hover:text-blue-700 underline p-1"
+                    type="submit"
+                    className="bg-blue-500 hover:bg-blue-700 duration-200 mx-auto text-lg px-5 py-1 border-2 rounded-3xl text-white my-1"
+                    onClick={handleSubmit}
                   >
                     LogIn
                   </button>
-                </p>
-              </>
-            )}
-          </div>
-        </form>
+
+                  <p className="text-gray-500 text-center m-4">
+                    Not Registered Yet?{" "}
+                    <button
+                      type="button"
+                      onClick={controlFormToggle}
+                      className="text-blue-500 hover:text-blue-700 underline p-1"
+                    >
+                      SignUp
+                    </button>
+                  </p>
+                </>
+              ) : (
+                <>
+                  <button
+                    type="submit"
+                    className="bg-green-500 hover:bg-green-700 duration-200 mx-auto text-lg px-5 py-1 border-2 rounded-3xl text-white my-1"
+                    onClick={handleSubmit}
+                  >
+                    SignUp
+                  </button>
+
+                  <p className="text-gray-500 text-center m-4">
+                    Already Registered?{" "}
+                    <button
+                      onClick={controlFormToggle}
+                      type="button"
+                      className="text-blue-500 hover:text-blue-700 underline p-1"
+                    >
+                      LogIn
+                    </button>
+                  </p>
+                </>
+              )}
+            </div>
+          </form>
+        </div>
       </div>
       <ToastContainer />
     </div>

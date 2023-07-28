@@ -5,7 +5,7 @@ const userMethods = require("../controllers/user.controller");
 const { passport, loginSucceed } = require('../controllers/oAuth.controller')
 const midlleware = require('../middlewares/auth')
 
-userRouter.get('/home', midlleware.auth, (req, res) => {
+userRouter.get('/home', (req, res) => {
     res.send("Welcome KuickReader!");
 })
 userRouter.post('/signUp', userMethods.signUp);
