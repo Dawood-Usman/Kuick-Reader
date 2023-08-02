@@ -1,5 +1,5 @@
 import React from 'react'
-import Header from '../components/LandingPage/Header'
+import Header from '../components/Header/Header'
 import Slider from '../components/LandingPage/Slider'
 import FeaturedProducts from '../components/LandingPage/FeaturedProducts'
 import Footer from '../components/Footer'

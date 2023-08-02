@@ -28,8 +28,8 @@ function Categories() {
     <div className='flex flex-col my-10'>
       <h1 className='text-center text-sky-600 text-2xl'>Top Categories</h1>
     <div className='flex flex-row gap-5 flex-wrap my-8 justify-center'>
-      {Categories.map((obj) => (
-        <div className='categoryCardBg rounded-md shadow-lg w-72 h-auto p-6 cursor-pointer'>
+      {Categories.map((obj, index) => (
+        <div className='categoryCardBg rounded-md shadow-lg w-72 h-auto p-6 cursor-pointer' key={index}>
             <img className='w-16' src={obj.img} alt="" />
             <h1 className='text-xl text-700'>{obj.title}</h1>
             <button className='mt-3 border-2 text-lg px-7 py-1 rounded-md bg-blue-600 text-white hover:bg-blue-900 shadow-md ease-in-out duration-200'>Explore</button>

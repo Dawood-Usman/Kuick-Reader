@@ -26,7 +26,7 @@ function LoginSignupPage() {
       if (response.status === 200) {
         notify(response.data.SuccessMsg);
         const Token = response.data.Token;
-        localStorage.setItem("token", Token);
+        localStorage.setItem("jwtToken", Token);
         navigate("/dashboard", {
           state: {
             email,
@@ -99,7 +99,7 @@ function LoginSignupPage() {
             {isLoginForm ? "Login" : "SignUp"}
           </h2>
           <OauthButton isLoginForm={isLoginForm}></OauthButton>
-          <form action="">
+          <form action="" onSubmit={handleSubmit}>
             <div className="flex flex-col">
               {isLoginForm ? (
                 <>
@@ -172,7 +172,6 @@ function LoginSignupPage() {
                   <button
                     type="submit"
                     className="bg-blue-500 hover:bg-blue-700 duration-200 mx-auto text-lg px-5 py-1 border-2 rounded-3xl text-white my-1"
-                    onClick={handleSubmit}
                   >
                     LogIn
                   </button>
@@ -193,7 +192,6 @@ function LoginSignupPage() {
                   <button
                     type="submit"
                     className="bg-green-500 hover:bg-green-700 duration-200 mx-auto text-lg px-5 py-1 border-2 rounded-3xl text-white my-1"
-                    onClick={handleSubmit}
                   >
                     SignUp
                   </button>
