@@ -5,7 +5,7 @@ function History() {
   return (
     <div className="flex flex-col flex-wrap items-center w-[100%] text-center my-5 p-2 min-h-sccreen min-h-[300px]">
       <p className="text-2xl font-semibold py-4">My Uploads</p>
-      <div className="flex flex-wrap flex-row justify-between items-center bg-gray-300 w-full rounded p-2 mb-1 shadow-md">
+      <div className="flex flex-wrap flex-row justify-between items-center bg-slate-200 w-full rounded p-2 mb-1 shadow-md">
         <img src={Image} alt="" className="w-16 h-fit m-1 rounded" />
         <p className="font-semibold text-lg m-1">Name</p>
         <p className="font-semibold text-lg m-1">File Size</p>

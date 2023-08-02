@@ -19,6 +19,7 @@ function Header() {
 
   return (
     <>
+      
       <div className="flex flex-wrap justify-between content-center w-full h-auto px-10 py-2 z-30">
         <div className="flex flex-col cursor-pointer m-0 p-0">
           <img
@@ -29,27 +30,27 @@ function Header() {
           <h1 className=" text-lg">kuickReader</h1>
         </div>
         <ul className="flex flex-row flex-wrap cursor-pointer">
-          <Link
+        <Link
             to="/"
-            className="uppercase self-center bg-gray-100 mx-3 rounded-md px-5 py-1 hover:scale-110 duration-300 ease-in-out text-lg border-green-600"
+            className="uppercase self-center mx-1 px-5 py-1 hover:text-orange-400 duration-200 ease-linear text-lg"
           >
             Home
           </Link>
           <Link
             to="/categories"
-            className="uppercase self-center bg-gray-100 mx-3 rounded-md px-5 py-1 hover:scale-110 duration-300 ease-in-out text-lg border-green-600"
+            className="uppercase self-center mx-1 px-5 py-1 hover:text-orange-400 duration-200 ease-linear text-lg"
           >
             Categories
           </Link>
           <Link
             to="/about"
-            className="uppercase self-center bg-gray-100 mx-3 rounded-md px-5 py-1 hover:scale-110 duration-300 ease-in-out text-lg border-green-600"
+            className="uppercase self-center mx-1 px-5 py-1 hover:text-orange-400 duration-200 ease-linear text-lg"
           >
             About
           </Link>
           <Link
             to="/contact"
-            className="uppercase self-center bg-gray-100 mx-3 rounded-md px-5 py-1 hover:scale-110 duration-300 ease-in-out text-lg border-green-600"
+            className="uppercase self-center mx-1 px-5 py-1 hover:text-orange-400 duration-200 ease-linear text-lg"
           >
             Contact
           </Link>

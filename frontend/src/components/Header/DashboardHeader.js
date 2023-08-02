@@ -17,25 +17,25 @@ function DashboardHeader() {
         <ul className="flex flex-row flex-wrap cursor-pointer">
           <Link
             to="/"
-            className="uppercase self-center bg-gray-100 mx-4 rounded-md px-5 py-1 hover:scale-110 duration-300 ease-in-out text-lg border-green-600"
+            className="uppercase self-center mx-1 px-5 py-1 hover:text-orange-400 duration-200 ease-linear text-lg"
           >
             Home
           </Link>
           <Link
             to="/categories"
-            className="uppercase self-center bg-gray-100 mx-4 rounded-md px-5 py-1 hover:scale-110 duration-300 ease-in-out text-lg border-green-600"
+            className="uppercase self-center mx-1 px-5 py-1 hover:text-orange-400 duration-200 ease-linear text-lg"
           >
             Categories
           </Link>
           <Link
             to="/about"
-            className="uppercase self-center bg-gray-100 mx-4 rounded-md px-5 py-1 hover:scale-110 duration-300 ease-in-out text-lg border-green-600"
+            className="uppercase self-center mx-1 px-5 py-1 hover:text-orange-400 duration-200 ease-linear text-lg"
           >
             About
           </Link>
           <Link
             to="/contact"
-            className="uppercase self-center bg-gray-100 mx-4 rounded-md px-5 py-1 hover:scale-110 duration-300 ease-in-out text-lg border-green-600"
+            className="uppercase self-center mx-1 px-5 py-1 hover:text-orange-400 duration-200 ease-linear text-lg"
           >
             Contact
           </Link>

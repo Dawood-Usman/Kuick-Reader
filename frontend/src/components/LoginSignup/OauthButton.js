@@ -1,17 +1,32 @@
 import React from "react";
-import GoogleIcon from "./../../assets/images/GoogleIcon.png";
 import axios from "./../../axios";
+import { useNavigate } from "react-router-dom";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 
 function OauthButton(props) {
-  const handleOauthLogin = (credentialResponse) => {
-    const oauthToken = credentialResponse.credentialResponse;
+
+  const navigate = useNavigate();
+
+  const handleOauthLogin = async (credentialResponse) => {
+    console.log(credentialResponse);
+    const oauthToken = credentialResponse.credential;
+    console.log(oauthToken);
     localStorage.setItem("oauthToken", oauthToken);
     try {
-      const response = axios.get("/userInfo", {
+      const response = await axios.get("/userInfo", {
         headers: { Authorization: `Bearer ${oauthToken}` },
       });
       console.log(response);
+      if(response)
+      {
+        const userName = response.data.decodedData.given_name;
+        console.log(userName);
+        navigate("/dashboard", {
+          state: {
+            userName
+          },
+        });
+      }
     } catch (error) {
       console.log(error);
     }
