@@ -32,7 +32,7 @@ const uploadPdfToS3 = (req,res)=>{
               res.status(400).json({storeErr})
             } else {
               console.log('PDF Link data stored in DynamoDB');
-              res.status(200).json({fileLink : s3Url.publicLink})
+              res.status(200).json({fileName : req.session.fileName,fileLink : s3Url.publicLink})
             }
           });
         }
