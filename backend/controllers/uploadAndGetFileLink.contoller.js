@@ -2,11 +2,12 @@ const { v4: uuidv4 } = require('uuid');
 const { db, Table } = require('../config/awsDynanamoDBconfig');
 
 // Store the email and S3File Link in DynomoDB
-const storeFileLink = (email, fileLink, callback)=>{
+const storeFileLink = (email, fileName,fileLink, callback)=>{
   const id = uuidv4(); // Generate a unique identifier
   const item = {
     id,
     email,
+    fileName,
     fileLink,
   };
 
@@ -64,6 +65,7 @@ const getFileLinks = (email, callback)=>{
     } else {
       const fileLinks = data.Items.map(item => ({
         id: item.id,
+        fileName: item.fileName,
         fileLink: item.fileLink,
       }));
       callback(null, fileLinks);
