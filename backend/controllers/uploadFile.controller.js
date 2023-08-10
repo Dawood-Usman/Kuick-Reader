@@ -26,7 +26,7 @@ const uploadPdfToS3 = (req,res)=>{
     if (err) {
         res.json({err})
     } else {
-        storeFileLink(email, s3Url.publicLink, (storeErr, data) => {
+        storeFileLink(email, req.session.fileName, s3Url.publicLink, (storeErr, data) => {
             if (storeErr) {
               console.error('Error storing PDF data in DynamoDB:', storeErr);
               res.status(400).json({storeErr})
