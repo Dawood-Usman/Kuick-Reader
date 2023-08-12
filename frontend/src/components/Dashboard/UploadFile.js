@@ -54,7 +54,7 @@ function UploadFile() {
 
   const notify = (msg) => toast(msg);
 
-  
+
   return (
     <div className="flex flex-col flex-wrap justify-start items-center w-[100%] text-center mt-20 mb-10 mx-2">
       <p className="text-3xl font-semibold italic ">
