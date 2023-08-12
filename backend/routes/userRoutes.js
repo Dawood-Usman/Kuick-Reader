@@ -8,27 +8,28 @@ const path = require('path');
 const userMethods = require("../controllers/user.controller");
 const { passport, loginSucceed } = require('../controllers/oAuth.controller')
 const midlleware = require('../middlewares/auth')
-const {storeFileLink,getFileLinksByEmail}= require('../controllers/uploadAndGetFileLink.contoller');
+const { storeFileLink, getFileLinksByEmail } = require('../controllers/uploadAndGetFileLink.contoller');
 const uploadPdfToS3 = require('../controllers/uploadFile.controller');
 
 userRouter.get('/home', (req, res) => {
-    res.send("Welcome KuickReader!");
+  res.send("Welcome KuickReader!");
 })
 userRouter.post('/signUp', userMethods.signUp);
 userRouter.post('/signIn', userMethods.signIn);
 userRouter.post('/verify', userMethods.verifyEmail);
 userRouter.get('/userInfo', userMethods.getTokenInfo);
+userRouter.get('/jwtInfo', userMethods.getJwtInfo);
 
 // oAuth API
 userRouter.get(
-    "/oauth/google",
-    passport.authenticate("google", { scope: ["profile", "email"] }) 
+  "/oauth/google",
+  passport.authenticate("google", { scope: ["profile", "email"] })
 );
 
 userRouter.get(
-    "/oauth/google/callback",
-    passport.authenticate("google", { failureRedirect: "/signIn" }),
-    loginSucceed
+  "/oauth/google/callback",
+  passport.authenticate("google", { failureRedirect: "/signIn" }),
+  loginSucceed
 );
 
 
@@ -47,19 +48,21 @@ const storage = multer.diskStorage({
     file.stream.pipe(stream);
 
     cb(null, fileName);
-  },
+  },
 });
-  
-  
-const upload = multer({ storage,
-  limits: { fileSize: 1024 * 1024 * 10 } });
 
-  
+
+const upload = multer({
+  storage,
+  limits: { fileSize: 1024 * 1024 * 10 }
+});
+
+
 // Handle the file upload endpoint
 userRouter.post('/upload', upload.single('file'), uploadPdfToS3);
 
 
 // Get File Links of User
-userRouter.get('/getlinks',getFileLinksByEmail);
+userRouter.get('/getlinks', getFileLinksByEmail);
 
 module.exports = userRouter;

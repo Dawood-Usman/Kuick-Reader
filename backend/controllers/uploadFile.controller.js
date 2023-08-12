@@ -10,12 +10,7 @@ const uploadPdfToS3 = (req,res)=>{
   runPythonScript(req.session.fileName, req.session.fileName, () => {
     // Send the modified PDF file as a response
 
-    // const token = req.cookies.jwtUserAuth;
-    // const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-    // Access the data from the decoded token
-    // const email = decodedToken.email
-    // if (typeof email == 'undefined') email = 'ranaadil571@gmail.com'
-    const email = 'ranaadil571@gmail.com'
+    const email = req.body.email || 'ranaadil571@gmail.com';
     const outputPath = path.join(__dirname, `../uploads/${req.session.fileName}`);
 
     const s3FileName = req.session.fileName;
