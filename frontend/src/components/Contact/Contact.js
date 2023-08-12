@@ -9,6 +9,7 @@ import MailIcon from "./../../assets/images/MailIcon.png";
 import PhoneIcon from "./../../assets/images/PhoneIcon.png";
 import WebsiteIcon from "./../../assets/images/WebsiteIcon.png";
 
+
 function Contact() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -17,7 +18,6 @@ function Contact() {
   const SERVICE_ID = 'service_01557ld';
   const TEMPLATE_ID = 'template_tuxk8pq';
   const USER_ID = 'FO0CRfc9tbCPf5_xx';
-
 
   const sendEmail = (e) => {
     e.preventDefault();
@@ -40,16 +40,15 @@ function Contact() {
       .then(
         (response) => {
           notify("Email sent successfully!", response);
+          setName("");
+          setEmail("");
+          setSubject("");
+          setMessage("");
         },
         (error) => {
           notify("Failed to send email.", error);
         }
       );
-
-    setName("");
-    setEmail("");
-    setSubject("");
-    setMessage("");
   };
 
   const notify = (msg) => toast(msg);

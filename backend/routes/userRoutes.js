@@ -1,7 +1,8 @@
 const express = require("express");
 const userRouter = express.Router();
 const multer = require('multer');
-
+const fs = require('fs');
+const path = require('path');
 
 
 const userMethods = require("../controllers/user.controller");
@@ -33,21 +34,25 @@ userRouter.get(
 
 // get file and update the file
 const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      // Specify the directory where uploaded files will be stored
-      cb(null, 'uploads/');
-    },
-    filename: function (req, file, cb) {
-      // Use the original filename for the uploaded file
-      const originalFileName = file.originalname.replace(/\s/g, '_'); // Replace spaces with underscores
-      const fileName = originalFileName;
-      req.session.fileName = fileName;
-      cb(null, fileName);
-    }
-  });
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/');
+  },
+  filename: function (req, file, cb) {
+    console.log(file);
+    const originalFileName = file.originalname.replace(/\s/g, '_');
+    const fileName = originalFileName;
+    req.session.fileName = fileName;
+
+    const stream = fs.createWriteStream(path.join('uploads', fileName));
+    file.stream.pipe(stream);
+
+    cb(null, fileName);
+  },
+});
   
   
-const upload = multer({ storage });
+const upload = multer({ storage,
+  limits: { fileSize: 1024 * 1024 * 10 } });
 
   
 // Handle the file upload endpoint

@@ -1,12 +1,20 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setJwtToken } from "../../redux/jwtToken/actions";
+import { setUser } from "../../redux/user/actions";
 import axios from "./../../axios";
 import { ToastContainer, toast } from "react-toastify";
+import { useContext } from "react";
+import { LoginContext } from "../../Contexts/LoginContext";
 import "react-toastify/dist/ReactToastify.css";
 import OauthButton from "./OauthButton";
 
+
 function LoginSignupPage() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { setIsLoggedIn } = useContext(LoginContext);
 
   const [isLoginForm, setIsLoginForm] = useState(true);
   const [fullName, setFullName] = useState("");
@@ -26,13 +34,12 @@ function LoginSignupPage() {
       if (response.status === 200) {
         notify(response.data.SuccessMsg);
         const Token = response.data.Token;
-        localStorage.setItem("jwtToken", Token);
-        navigate("/dashboard", {
-          state: {
-            email,
-            Token,
-          },
-        });
+        dispatch(setJwtToken(Token));
+        const newUser = { username: email, status: true };
+        dispatch(setUser(newUser));
+        setIsLoggedIn(true);
+
+        navigate("/dashboard");
       }
     } catch (error) {
       notify(error.response.data.ErrorMsg);
@@ -72,6 +79,7 @@ function LoginSignupPage() {
 
   const notify = (msg) => toast(msg);
 
+  
   return (
     <div className="flex overflow-hidden relative h-screen">
       <div

@@ -1,37 +1,44 @@
 import React from "react";
 import axios from "./../../axios";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setOauthToken } from "../../redux/oauthToken/actions";
+import { setUser } from '../../redux/user/actions';
+import { useContext } from "react";
+import { LoginContext } from "../../Contexts/LoginContext";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 
-function OauthButton(props) {
 
+function OauthButton(props) {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { setIsLoggedIn } = useContext(LoginContext);
 
   const handleOauthLogin = async (credentialResponse) => {
     console.log(credentialResponse);
     const oauthToken = credentialResponse.credential;
     console.log(oauthToken);
-    localStorage.setItem("oauthToken", oauthToken);
+    dispatch(setOauthToken(oauthToken));
     try {
       const response = await axios.get("/userInfo", {
         headers: { Authorization: `Bearer ${oauthToken}` },
       });
       console.log(response);
-      if(response)
-      {
+      if (response) {
         const userName = response.data.decodedData.given_name;
         console.log(userName);
-        navigate("/dashboard", {
-          state: {
-            userName
-          },
-        });
+        const newUser = { username: userName, status: true };
+        dispatch(setUser(newUser));
+        setIsLoggedIn(true);
+
+        navigate("/dashboard");
       }
     } catch (error) {
       console.log(error);
     }
   };
 
+  
   return (
     <>
       <GoogleOAuthProvider clientId="3670868246-pvlrlluc48ggmq84lrra5vcp2k349n7g.apps.googleusercontent.com">
