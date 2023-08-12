@@ -2,10 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Logo from "./../../assets/images/logo.png";
 
+
 function DashboardHeader() {
   return (
     <>
-      <div className="flex flex-wrap justify-between content-center h-auto px-10 py-2 z-30 shadow-lg w-[100%]">
+      <div className="flex flex-wrap justify-between content-center h-auto px-10 py-2 z-30 shadow w-[100%]">
         <div className="flex flex-col cursor-pointer m-0 p-0">
           <img
             className="w-8 h-fit self-center"
@@ -22,10 +23,10 @@ function DashboardHeader() {
             Home
           </Link>
           <Link
-            to="/categories"
+            to="/dashboard"
             className="uppercase self-center mx-1 px-5 py-1 hover:text-orange-400 duration-200 ease-linear text-lg"
           >
-            Categories
+            Dashboard
           </Link>
           <Link
             to="/about"

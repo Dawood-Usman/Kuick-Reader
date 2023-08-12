@@ -1,33 +1,29 @@
 import "./App.css";
-import EmailConfirmation from "./components/LoginSignup/EmailConfirmation";
-import Dashboard from "./pages/Dashboard";
-import LandingPage from "./pages/LandingPage";
-import LoginSignupPage from "./pages/LoginSignupPage";
-import { Route, Routes, BrowserRouter } from "react-router-dom";
-import ContactPage from "./pages/ContactPage";
-import NoMatch from "./components/NoMatch/NoMatch";
 import { LoginContext } from "./Contexts/LoginContext";
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
+import { Provider } from "react-redux";
+import store from "./redux/store";
+import RouteProvider from "./Routes/RouteProvider";
 
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  useEffect(() => {
+    if (!localStorage.getItem("user")) {
+      const user = { username: "", status: false };
+      localStorage.setItem("user", JSON.stringify(user));
+    }
+  }, []);
+
+  
   return (
     <>
-      <BrowserRouter>
+      <Provider store={store}>
         <LoginContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
-          <Routes>
-            <Route path="/" element={<LandingPage />} />
-            <Route path="/login" element={<LoginSignupPage />} />
-            <Route path="/verification" element={<EmailConfirmation />} />
-            <Route path="/dashboard" element={<Dashboard />}></Route>
-            <Route path="/contact" element={<ContactPage />}></Route>
-            <Route path="*" element={<NoMatch />}></Route>
-          </Routes>
+          <RouteProvider />
         </LoginContext.Provider>
-      </BrowserRouter>
+      </Provider>
     </>
   );
 }
