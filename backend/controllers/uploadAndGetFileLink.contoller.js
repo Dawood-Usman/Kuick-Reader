@@ -36,7 +36,7 @@ const getFileLinksByEmail = (req,res)=>{
     //  Access the data from the decoded token
     // const email = decodedToken.email
     // if (typeof email == 'undefined') email = 'ranaadil571@gmail.com'
-    const email = 'ranaadil571@gmail.com'
+    const email = req.query.email || 'ranaadil571@gmail.com'
     getFileLinks(email, (err, fileLinks) => {
         if (err) {
             console.error('Error:', err);

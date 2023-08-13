@@ -34,7 +34,7 @@ function Sidebar({ onStateChange }) {
     const handleLogout = () => {
       dispatch(deleteJwtToken());
       dispatch(deleteOauthToken());
-      const newUserState = {username : '', status: false};
+      const newUserState = {username : '',email: '', status: false};
       dispatch(deleteUser(newUserState));
       setIsLoggedIn(false);
       navigate('/');
