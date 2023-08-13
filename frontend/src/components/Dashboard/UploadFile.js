@@ -7,6 +7,7 @@ import UploadIcon from "./../../assets/images/UploadIcon.png";
 function UploadFile() {
   const [errorMessage, setErrorMessage] = useState("");
   const [fileToUpload, setFileToUpload] = useState(null);
+  const email = JSON.parse(localStorage.getItem('user')).email;
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -35,8 +36,9 @@ function UploadFile() {
 
     if (fileToUpload !== null) {
       try {
-        const formData = new FormData();
-        formData.append("file", fileToUpload);
+        const formData = {
+        'file': fileToUpload,
+        'email': email,};
 
         const response = await axios.post("/upload", formData);
         if (response) {
@@ -45,7 +47,6 @@ function UploadFile() {
         }
       } catch (error) {
         console.log(error);
-        alert("error");
       }
     } else {
       setErrorMessage("Please select a file.");

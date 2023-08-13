@@ -28,14 +28,14 @@ function Header() {
 
   const delJwtToken = async () => {
     dispatch(deleteJwtToken());
-    const userNewState = { username: "", status: false };
+    const userNewState = { username: "",email: '', status: false };
     dispatch(deleteUser(userNewState));
     setIsLoggedIn(false);
   };
 
   const delOauthToken = async () => {
     dispatch(deleteOauthToken());
-    const userNewState = { username: "", status: false };
+    const userNewState = { username: "", email: '', status: false };
     dispatch(deleteUser(userNewState));
     setIsLoggedIn(false);
   };
@@ -60,11 +60,23 @@ function Header() {
           console.log("redirect to login page");
         } else {
           //redirect to dashboard
-          const user = { username: decodedjwtToken.email, status: true };
-          dispatch(setUser(user));
-          setIsLoggedIn(true);
-          navigate("/dashboard");
-          console.log("redirect to dashboard");
+
+          try {
+            const response = await axios.get('/jwtInfo', {
+              headers: { Authorization: `Bearer ${jwtToken}` },
+            });
+            const {Name, Email} = response.data;
+
+            const user = { username: Name, email: Email , status: true };
+            dispatch(setUser(user));
+            setIsLoggedIn(true);
+            navigate("/dashboard");
+            console.log("redirect to dashboard");
+
+          } catch (error) {
+            console.log(error);
+            return;
+          }
         }
       } catch (error) {
         delJwtToken();
@@ -83,8 +95,8 @@ function Header() {
           console.log("googleOauth Verified");
 
           const userName = response.data.given_name;
-          console.log(userName);
-          const user = { username: userName, status: true };
+          const Email = response.data.email;
+          const user = { username: userName, email: Email, status: true };
           dispatch(setUser(user));
           setIsLoggedIn(true);
 

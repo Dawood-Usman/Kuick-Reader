@@ -34,12 +34,25 @@ function LoginSignupPage() {
       if (response.status === 200) {
         notify(response.data.SuccessMsg);
         const Token = response.data.Token;
-        dispatch(setJwtToken(Token));
-        const newUser = { username: email, status: true };
-        dispatch(setUser(newUser));
-        setIsLoggedIn(true);
 
-        navigate("/dashboard");
+        try {
+          const response = await axios.get('/jwtInfo', {
+            headers: { Authorization: `Bearer ${Token}` },
+          });
+          const {Name, Email} = response.data;
+
+          dispatch(setJwtToken(Token));
+          const newUser = { username: Name, email: Email, status: true };
+          dispatch(setUser(newUser));
+          setIsLoggedIn(true);
+  
+          navigate("/dashboard");
+
+        } catch (error) {
+          console.log(error);
+          return;
+        }
+
       }
     } catch (error) {
       notify(error.response.data.ErrorMsg);

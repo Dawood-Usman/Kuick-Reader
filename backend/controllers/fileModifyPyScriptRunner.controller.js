@@ -17,7 +17,7 @@ module.exports = function runPythonScript(
   // Provide the full path to the Python executable in your virtual environment
   const pythonExecutable =
     os.platform() === "win32"
-      ? "python"
+      ? "C:\\Users\\Administrator\\AppData\\Local\\Programs\\Python\\Python310\\python.exe"
       : "/usr/bin/python3";
 
   const pythonArgs = [pythonScript, inputPath, outputPath];

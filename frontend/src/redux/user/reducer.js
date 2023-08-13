@@ -3,11 +3,13 @@ import { SET_USER, DELETE_USER } from './actionTypes';
 let initialState = null;
 if(localStorage.getItem('user')) {
   initialState = {username: JSON.parse(localStorage.getItem('user')).username,
+  email: JSON.parse(localStorage.getItem('user')).email,
   status: JSON.parse(localStorage.getItem('user')).status,}
 }
 else{
   initialState = {
     username : '',
+    email: '',
     status: false,
   }
 };

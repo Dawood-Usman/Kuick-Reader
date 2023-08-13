@@ -11,7 +11,7 @@ function App() {
 
   useEffect(() => {
     if (!localStorage.getItem("user")) {
-      const user = { username: "", status: false };
+      const user = { username: "",email:"", status: false };
       localStorage.setItem("user", JSON.stringify(user));
     }
   }, []);

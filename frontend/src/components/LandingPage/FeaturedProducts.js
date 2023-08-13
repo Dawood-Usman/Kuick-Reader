@@ -1,5 +1,5 @@
 import React from "react";
-import { arr } from "../../Data/FeaturedProductsData";
+import { arr } from "../../Data/featuredProductsData";
 
 
 function FeaturedProducts() {

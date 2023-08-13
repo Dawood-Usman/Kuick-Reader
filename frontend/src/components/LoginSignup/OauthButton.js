@@ -26,8 +26,8 @@ function OauthButton(props) {
       console.log(response);
       if (response) {
         const userName = response.data.decodedData.given_name;
-        console.log(userName);
-        const newUser = { username: userName, status: true };
+        const Email = response.data.decodedData.email;
+        const newUser = { username: userName, email: Email, status: true };
         dispatch(setUser(newUser));
         setIsLoggedIn(true);
 
