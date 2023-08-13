@@ -7,10 +7,14 @@ const jwt = require('jsonwebtoken');
 
 const uploadPdfToS3 = (req,res)=>{
   // The uploaded file is available in req.file
+  console.log(req.body);
+  console.log("req.session.fileName: ", req.session.fileName);
   runPythonScript(req.session.fileName, req.session.fileName, () => {
     // Send the modified PDF file as a response
 
-    const email = req.body.email || 'ranaadil571@gmail.com';
+    const email = req.query.email || 'ranaadil571@gmail.com';
+    console.log("req.query.email: ", req.query.email);
+
     const outputPath = path.join(__dirname, `../uploads/${req.session.fileName}`);
 
     const s3FileName = req.session.fileName;

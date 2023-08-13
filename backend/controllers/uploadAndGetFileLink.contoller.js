@@ -28,7 +28,6 @@ const storeFileLink = (email, fileName,fileLink, callback)=>{
 }
 
 
-
 // get the links of files of ser email
 const getFileLinksByEmail = (req,res)=>{
   // const token = req.cookies.jwtUserAuth;
@@ -37,6 +36,7 @@ const getFileLinksByEmail = (req,res)=>{
     // const email = decodedToken.email
     // if (typeof email == 'undefined') email = 'ranaadil571@gmail.com'
     const email = req.query.email || 'ranaadil571@gmail.com'
+    console.log("req.query.email: ", req.query.email);
     getFileLinks(email, (err, fileLinks) => {
         if (err) {
             console.error('Error:', err);

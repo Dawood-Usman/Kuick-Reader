@@ -36,11 +36,18 @@ function UploadFile() {
 
     if (fileToUpload !== null) {
       try {
-        const formData = {
-        'file': fileToUpload,
-        'email': email,};
+        // const formData = {
+        //   'file': fileToUpload,
+        //   'email': email,
+        // };
 
-        const response = await axios.post("/upload", formData);
+        const formData = new FormData();
+        formData.append("file", fileToUpload);
+
+        console.log(formData);
+        const response = await axios.post(`/upload`, formData, {
+          params: {email: email}
+        });
         if (response) {
           console.log(response);
           notify("PDF Uploaded! Check History Tab to Read File");

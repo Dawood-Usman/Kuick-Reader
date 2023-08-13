@@ -39,7 +39,7 @@ const storage = multer.diskStorage({
     cb(null, 'uploads/');
   },
   filename: function (req, file, cb) {
-    console.log(file);
+    console.log("This is file: ", file);
     const originalFileName = file.originalname.replace(/\s/g, '_');
     const fileName = originalFileName;
     req.session.fileName = fileName;
@@ -55,11 +55,11 @@ const storage = multer.diskStorage({
 const upload = multer({
   storage,
   limits: { fileSize: 1024 * 1024 * 10 }
-});
+}).single('file');
 
 
 // Handle the file upload endpoint
-userRouter.post('/upload', upload.single('file'), uploadPdfToS3);
+userRouter.post('/upload', upload, uploadPdfToS3);
 
 
 // Get File Links of User
