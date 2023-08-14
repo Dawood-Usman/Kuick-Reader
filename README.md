@@ -15,11 +15,11 @@ git config --global user.email "your email"
 ```
 3. Set up the Remote Repository
 ```
-git remote add origin https://github.com/Dawood-Usman/Summers-Project
+git remote add origin https://github.com/Dawood-Usman/Kuick-Reader
 ```
 4. Pull or Clone code from the master branch
 ```
-git pull origin master OR git clone https://github.com/Dawood-Usman/Summers-Project
+git pull origin master OR git clone https://github.com/Dawood-Usman/Kuick-Reader
 ```
 ## Collaboration Workflow
 
@@ -32,7 +32,7 @@ Note:
 Before making any changes, create a new branch for your work. Use a descriptive branch name that reflects the task or feature you're working on (See branch name guide section).
 Work on Your Changes Make the necessary changes and additions to the project on your local machine. Once you're satisfied with your changes, 
 commit them to your local branch using the following command:
-<br>
+<br><br>
 
 ```
 git add .
